@@ -9,6 +9,7 @@ func main() {
 		w.Write([]byte(response))
 	})
 
+	println("listening at port 3000")
 	err := http.ListenAndServe(":3000", nil)
 	if err != nil {
 		panic(err)

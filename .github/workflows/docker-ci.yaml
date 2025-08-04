@@ -39,14 +39,14 @@ jobs:
         script: |
           mkdir -p ~/apps/test-app
 
-        # 4.5 Upload docker-compose.yml to VPS
+    # 4.5 Upload docker-compose.yml to VPS
     - name: Upload docker-compose.yml to VPS
       uses: appleboy/scp-action@v0.1.4
       with:
         host: ${{ secrets.VPS_HOST }}
         username: ${{ secrets.VPS_USER }}
         key: ${{ secrets.VPS_SSH_KEY }}
-        source: "docker-compose.yml"
+        source: "docker-compose.yaml"
         target: "~/apps/test-app/"
 
     # 5. Deploy via SSH

@@ -3,12 +3,16 @@ FROM golang:1.24-alpine AS builder
 
 WORKDIR /app
 
-# Copy only the files you have
-COPY go.mod ./
-# If you don't have go.sum yet, this is fine — `go mod tidy` will create it
-RUN go mod tidy
+# Copy dependency files first
+COPY go.mod go.sum ./
 
-COPY main.go ./
+# Download dependencies (cached if unchanged)
+RUN go mod download
+
+# Copy the rest of the source code
+COPY . .
+
+# Build the app
 RUN go build -o main .
 
 # Step 2: Minimal final image

@@ -14,9 +14,9 @@ var ctx = context.Background()
 func main() {
 
 	rdb := redis.NewClient(&redis.Options{
-		Addr:     "localhost:6379", // change if running elsewhere
-		Password: "",               // no password by default
-		DB:       0,                // default DB
+		Addr:     "redis:6379", // change if running elsewhere
+		Password: "",           // no password by default
+		DB:       0,            // default DB
 	})
 
 	err := rdb.Set(ctx, "greeting", "Hello Redis from Go!", 0).Err()

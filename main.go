@@ -32,7 +32,7 @@ func main() {
 	fmt.Println("Stored value:", val)
 
 	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
-		response := "hello from port 3000"
+		response := "hello from port 8001"
 		w.Write([]byte(response))
 	})
 

@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"log"
 	"net/http"
+	"time"
 
 	"github.com/redis/go-redis/v9"
 )
@@ -18,6 +19,15 @@ func main() {
 		Password: "",           // no password by default
 		DB:       0,            // default DB
 	})
+
+	for {
+		err := rdb.Set(ctx, "ping", "ok", 0).Err()
+		if err == nil {
+			break
+		}
+		fmt.Println("Waiting for Redis...")
+		time.Sleep(time.Second)
+	}
 
 	err := rdb.Set(ctx, "greeting", "Hello Redis from Go!", 0).Err()
 	if err != nil {

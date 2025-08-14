@@ -29,38 +29,6 @@ jobs:
     - name: Push Docker image
       run: docker push joelgallan/test-app:latest
 
-    # 5. Deploy via SSH
-    - name: Deploy to VPS
-      uses: appleboy/ssh-action@v1.0.3
-      with:
-        host: ${{ secrets.VPS_HOST }}
-        username: ${{ secrets.VPS_USER }}
-        key: ${{ secrets.VPS_SSH_KEY }}
-        script: |
-          mkdir -p ~/apps/test-app
-
-    # 4.5 Upload docker-compose.yaml to VPS
-    - name: Upload docker-compose.yaml to VPS
-      uses: appleboy/scp-action@v0.1.4
-      with:
-        host: ${{ secrets.VPS_HOST }}
-        username: ${{ secrets.VPS_USER }}
-        key: ${{ secrets.VPS_SSH_KEY }}
-        source: "./docker-compose.yaml"
-        target: "~/apps/test-app/"
-
-    # 5. Deploy via SSH
-    - name: Deploy to VPS
-      uses: appleboy/ssh-action@v1.0.3
-      with:
-        host: ${{ secrets.VPS_HOST }}
-        username: ${{ secrets.VPS_USER }}
-        key: ${{ secrets.VPS_SSH_KEY }}
-        script: |
-          cd ~/apps/test-app
-          docker compose pull
-          docker compose up -d
-          docker system prune -af --volumes
 
 
 
